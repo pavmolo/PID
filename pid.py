@@ -24,7 +24,6 @@ def simulate_pid(Kp, Ki, Kd, set_point, initial_value, n=300, noise_scale=0.5):
     fig, ax = plt.subplots()
     line1, = ax.plot([], [], 'r-', label='Значение')
     line2, = ax.plot([], [], 'b-', label='Ошибка')
-    ax.set_xlim(0, n*dt)
     ax.set_ylim(min(initial_value, set_point) - 10, max(initial_value, set_point) + 10)
     ax.legend()
 
@@ -40,7 +39,12 @@ def simulate_pid(Kp, Ki, Kd, set_point, initial_value, n=300, noise_scale=0.5):
         values.append(values[-1] + output * dt)
         errors.append(error)
 
-        # Обновление графика
+        # Обновление пределов оси x для отображения последних 30 значений
+        if i > 30:
+            ax.set_xlim((i-30)*dt, i*dt)
+        else:
+            ax.set_xlim(0, i*dt)
+
         line1.set_data(time_steps[:i], values[:i])
         line2.set_data(time_steps[:i], errors[:i])
         plot_container.pyplot(fig)
