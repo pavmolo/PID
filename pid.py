@@ -41,8 +41,8 @@ def simulate_pid(Kp, Ki, Kd, set_point, initial_value, n=300, noise_scale=0.5):
         errors.append(error)
 
         # Обновление пределов оси x для отображения последних 30 значений
-        if i > 30:
-            ax.set_xlim((i-30)*dt, i*dt)
+        if i > 90:
+            ax.set_xlim((i-90)*dt, i*dt)
         else:
             ax.set_xlim(0, i*dt)
 
